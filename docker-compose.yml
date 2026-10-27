@@ -1,0 +1,21 @@
+# ShopNova — local MongoDB, one command from the project root:
+#
+#   docker compose up -d    # start MongoDB on localhost:27017 (data persists in a named volume)
+#   docker compose down     # stop it
+#
+# The server's default MONGO_URI (mongodb://localhost:27017/ecommerce) works
+# with this as-is — no .env changes needed. Requires Docker Desktop / Docker Engine.
+services:
+  mongo:
+    image: mongo:7
+    container_name: shopnova-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: ecommerce
+    volumes:
+      - shopnova-mongo-data:/data/db
+
+volumes:
+  shopnova-mongo-data:
